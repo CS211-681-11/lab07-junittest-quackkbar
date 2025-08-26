@@ -47,4 +47,14 @@ class StudentTest {
     void testToString(){
         assertEquals("{id: \'6710405401\', name: \'Test\', score: 0.0}", s.toString());
     }
+
+    @Test
+    void testIsId(){
+        assertEquals(true, s.isId("6710405401"));
+    }
+
+    @Test
+    void testIsNameContains(){
+        assertEquals(true, s.isNameContains("TEST"));
+    }
 }

@@ -10,17 +10,20 @@ class StudentListTest {
     StudentList list;
     @BeforeEach
     void init(){
+        list = new StudentList();
         list.addNewStudent("1234567890", "Test1");
         list.addNewStudent("2222222222", "Teen");
         list.addNewStudent("3333333333", "Toast");
-        list = new StudentList();
     }
 
     @Test
     @DisplayName("check addNewStudent")
     void testAddNewStudent() {
         list.addNewStudent("1111111111", "Test2");
-        assertEquals("123", list.getStudents());
+
+        Student s = list.findStudentById("1111111111");
+        assertNotNull(s);
+        assertEquals("Test2", s.getName());
     }
 
     @Test
@@ -32,6 +35,21 @@ class StudentListTest {
     @Test
     void testFilterByName() {
         StudentList testFilter = new StudentList();
-        assertEquals("");
+        testFilter.addNewStudent("3333333333", "Toast");
+        StudentList result = list.filterByName("To");
+        Student s = result.getStudents().get(0);
+        assertEquals("Toast", s.getName());
+    }
+
+    @Test
+    void testGiveScoreToId(){
+        list.giveScoreToId("1234567890", 50.0);
+        Student s = list.findStudentById("1234567890");
+        assertEquals(50.0, s.getScore());
+    }
+
+    @Test
+    void testViewGradeOfId(){
+        assertEquals("F", list.viewGradeOfId("1234567890"));
     }
 }
